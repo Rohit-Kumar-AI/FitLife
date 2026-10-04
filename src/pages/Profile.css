@@ -1,0 +1,274 @@
+.profile-page {
+  padding-top: 34px;
+  padding-bottom: 58px;
+}
+
+.profile-top-grid {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  gap: 14px;
+}
+
+.identity-card,
+.details-card,
+.profile-edit,
+.bmi-card {
+  padding: 22px;
+}
+
+.identity-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 270px;
+}
+
+.avatar {
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 19px;
+  border-radius: 22px;
+  background: #e4f7ea;
+  color: #159447;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.identity-card h2 {
+  margin: 6px 0;
+  font-size: 25px;
+  letter-spacing: -0.04em;
+}
+
+.identity-card p {
+  margin: 0;
+  color: #7d8982;
+  font-size: 12px;
+}
+
+.identity-card .secondary-btn {
+  margin-top: 23px;
+}
+
+.profile-card-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.profile-card-title h2 {
+  margin: 6px 0 0;
+  font-size: 20px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.details-grid > div {
+  padding: 13px;
+  border-radius: 12px;
+  background: #f7faf8;
+}
+
+.details-grid span,
+.details-grid strong,
+.bmi-summary span,
+.bmi-summary strong {
+  display: block;
+}
+
+.details-grid span,
+.bmi-summary span {
+  color: #8a958e;
+  font-size: 10px;
+}
+
+.details-grid strong {
+  margin-top: 5px;
+  color: #27332c;
+  font-size: 12px;
+}
+
+.bmi-card {
+  margin-top: 14px;
+}
+
+.bmi-badge {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #eaf8ef;
+  color: #168f46;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.bmi-summary {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.7fr;
+  gap: 12px;
+}
+
+.bmi-summary > div {
+  padding: 16px;
+  border-radius: 13px;
+  background: #f7faf8;
+}
+
+.bmi-summary strong {
+  margin-top: 7px;
+  color: #28362d;
+  font-size: 19px;
+}
+
+.bmi-number strong {
+  font-size: 33px;
+  letter-spacing: -0.04em;
+}
+
+.bmi-scale {
+  position: relative;
+  height: 13px;
+  margin-top: 23px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #72a9ff 0%,
+    #72a9ff 46.25%,
+    #52cd79 46.25%,
+    #52cd79 62.5%,
+    #f1c84c 62.5%,
+    #f1c84c 75%,
+    #eb7070 75%,
+    #eb7070 100%
+  );
+}
+
+.bmi-fill {
+  display: none;
+}
+
+.bmi-marker {
+  position: absolute;
+  top: 50%;
+  width: 19px;
+  height: 19px;
+  transform: translate(-50%, -50%);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #17231c;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+}
+
+.bmi-labels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 9px;
+  color: #8b968f;
+  font-size: 9px;
+}
+
+.bmi-labels span:nth-child(2),
+.bmi-labels span:nth-child(3) {
+  text-align: center;
+}
+
+.bmi-labels span:last-child {
+  text-align: right;
+}
+
+.profile-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.profile-form label {
+  color: #657169;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.profile-form input,
+.profile-form select {
+  width: 100%;
+  height: 42px;
+  margin-top: 7px;
+  padding: 0 11px;
+  border: 1px solid #dfe6e1;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: #17231c;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+  border-color: #16a34a;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+body.dark-mode .identity-card h2,
+body.dark-mode .details-grid strong,
+body.dark-mode .bmi-summary strong {
+  color: #f0f6f2;
+}
+
+body.dark-mode .identity-card p,
+body.dark-mode .details-grid span,
+body.dark-mode .bmi-summary span {
+  color: #9faea4;
+}
+
+body.dark-mode .avatar {
+  background: #153021;
+}
+
+body.dark-mode .details-grid > div,
+body.dark-mode .bmi-summary > div {
+  background: #111811;
+}
+
+body.dark-mode .profile-form label {
+  color: #b4c0b8;
+}
+
+body.dark-mode .profile-form input,
+body.dark-mode .profile-form select {
+  background: #111811;
+  border-color: #364239;
+  color: #f0f6f2;
+}
+
+@media (max-width: 850px) {
+  .profile-top-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bmi-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .details-grid,
+  .profile-form {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+}

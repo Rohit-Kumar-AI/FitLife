@@ -1,0 +1,142 @@
+.achievements-page {
+  padding-top: 34px;
+  padding-bottom: 58px;
+}
+
+.achievement-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 24px;
+}
+
+.achievement-banner h2 {
+  margin: 7px 0 5px;
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+
+.achievement-banner p {
+  margin: 0;
+  color: #7d8981;
+  font-size: 12px;
+}
+
+.achievement-meter {
+  min-width: 280px;
+}
+
+.achievement-meter > div {
+  height: 10px;
+  overflow: hidden;
+  background: #edf1ee;
+  border-radius: 999px;
+}
+
+.achievement-meter > div > span {
+  display: block;
+  height: 100%;
+  background: #16a34a;
+  border-radius: inherit;
+}
+
+.achievement-meter strong {
+  display: block;
+  margin-top: 7px;
+  color: #159447;
+  font-size: 12px;
+  text-align: right;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 15px;
+}
+
+.achievement-item {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  gap: 13px;
+  align-items: center;
+  padding: 18px;
+}
+
+.achievement-symbol {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: #edf9f1;
+  font-size: 23px;
+}
+
+.achievement-status {
+  color: #16a34a;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.achievement-item.locked .achievement-status {
+  color: #a0aaa4;
+}
+
+.achievement-copy h2 {
+  margin: 4px 0 5px;
+  color: #1e2a22;
+  font-size: 15px;
+}
+
+.achievement-copy p {
+  margin: 0;
+  color: #808c84;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.achievement-check {
+  color: #16a34a;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.achievement-item.locked {
+  opacity: 0.64;
+}
+
+body.dark-mode .achievement-banner h2,
+body.dark-mode .achievement-copy h2 {
+  color: #f2f7f4;
+}
+
+body.dark-mode .achievement-banner p,
+body.dark-mode .achievement-copy p {
+  color: #a1aea5;
+}
+
+body.dark-mode .achievement-meter > div {
+  background: #2a362e;
+}
+
+body.dark-mode .achievement-symbol {
+  background: #153021;
+}
+
+@media (max-width: 720px) {
+  .achievement-banner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .achievement-meter {
+    min-width: 0;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+}
