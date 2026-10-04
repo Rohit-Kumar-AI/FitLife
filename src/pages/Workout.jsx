@@ -1,220 +1,298 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./Workout.css";
 
-const workouts = {
-  Strength: {
+const WORKOUTS = [
+  {
+    type: "Strength",
     icon: "💪",
-    color: "strength",
     description: "Build strength and muscle with foundational movements.",
-    exercises: [
-      { name: "Push Ups", duration: "3 sets × 12 reps" },
-      { name: "Squats", duration: "3 sets × 15 reps" },
-      { name: "Lunges", duration: "3 sets × 10 reps" },
-      { name: "Plank", duration: "3 × 30 sec" },
-    ],
+    exercises: ["Push Ups", "Squats", "Lunges", "Plank"],
   },
-  Cardio: {
+  {
+    type: "Cardio",
     icon: "🏃",
-    color: "cardio",
     description: "Improve endurance and keep your heart rate moving.",
-    exercises: [
-      { name: "Jumping Jacks", duration: "3 × 30 sec" },
-      { name: "High Knees", duration: "3 × 30 sec" },
-      { name: "Mountain Climbers", duration: "3 × 20 reps" },
-      { name: "Burpees", duration: "3 × 10 reps" },
-    ],
+    exercises: ["Jumping Jacks", "High Knees", "Mountain Climbers", "Burpees"],
   },
-  Flexibility: {
+  {
+    type: "Flexibility",
     icon: "🧘",
-    color: "flexibility",
     description: "Improve mobility, balance and everyday movement quality.",
     exercises: [
-      { name: "Hamstring Stretch", duration: "30 sec" },
-      { name: "Shoulder Stretch", duration: "30 sec" },
-      { name: "Quad Stretch", duration: "30 sec" },
-      { name: "Child's Pose", duration: "45 sec" },
+      "Neck Stretch",
+      "Shoulder Stretch",
+      "Hamstring Stretch",
+      "Quad Stretch",
     ],
   },
-  HIIT: {
+  {
+    type: "HIIT",
     icon: "🔥",
-    color: "hiit",
     description: "Fast, high-intensity intervals for a quick challenge.",
-    exercises: [
-      { name: "Burpees", duration: "30 sec" },
-      { name: "Jump Squats", duration: "30 sec" },
-      { name: "High Knees", duration: "30 sec" },
-      { name: "Mountain Climbers", duration: "30 sec" },
-    ],
+    exercises: ["Burpees", "Squat Jumps", "Mountain Climbers", "High Knees"],
   },
-};
+];
+
+const EXERCISE_DURATION = 30;
 
 function Workout({ addWorkout }) {
-  const [selected, setSelected] = useState(null);
-  const [current, setCurrent] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(30);
-  const [running, setRunning] = useState(false);
-  const [started, setStarted] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [exerciseIndex, setExerciseIndex] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(EXERCISE_DURATION);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
-  const exercises = selected ? workouts[selected].exercises : [];
+  const currentExercise = useMemo(() => {
+    if (!selectedWorkout) return null;
+    return selectedWorkout.exercises[exerciseIndex];
+  }, [selectedWorkout, exerciseIndex]);
 
   useEffect(() => {
-    if (!running) return;
+    if (!selectedWorkout || isPaused || isComplete) return;
 
     const timer = setInterval(() => {
-      setTimeLeft((time) => {
-        if (time <= 1) {
-          setRunning(false);
+      setTimeLeft((current) => {
+        if (current <= 1) {
           return 0;
         }
-        return time - 1;
+
+        return current - 1;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [running]);
+  }, [selectedWorkout, isPaused, isComplete, exerciseIndex]);
 
-  const chooseWorkout = (name) => {
-    setSelected(name);
-    setCurrent(0);
-    setTimeLeft(30);
-    setRunning(false);
-    setStarted(false);
-    setCompleted(false);
-  };
+  useEffect(() => {
+    if (!selectedWorkout || isPaused || isComplete) return;
 
-  const begin = () => {
-    setStarted(true);
-    setTimeLeft(30);
-    setRunning(true);
-  };
-
-  const next = () => {
-    if (current < exercises.length - 1) {
-      setCurrent((value) => value + 1);
-      setTimeLeft(30);
-      setRunning(true);
-      return;
+    if (timeLeft === 0) {
+      if (exerciseIndex < selectedWorkout.exercises.length - 1) {
+        setExerciseIndex((current) => current + 1);
+        setTimeLeft(EXERCISE_DURATION);
+      } else {
+        finishWorkout();
+      }
     }
+  }, [timeLeft, selectedWorkout, isPaused, isComplete, exerciseIndex]);
 
-    setRunning(false);
-    setCompleted(true);
-
-    addWorkout({
-      type: selected,
-      exercises: exercises.length,
-      date: new Date().toISOString(),
-    });
+  const startWorkout = (workout) => {
+    setSelectedWorkout(workout);
+    setExerciseIndex(0);
+    setTimeLeft(EXERCISE_DURATION);
+    setIsPaused(false);
+    setIsComplete(false);
   };
 
-  const exit = () => {
-    setSelected(null);
-    setCurrent(0);
-    setTimeLeft(30);
-    setRunning(false);
-    setStarted(false);
-    setCompleted(false);
+  const exitWorkout = () => {
+    setSelectedWorkout(null);
+    setExerciseIndex(0);
+    setTimeLeft(EXERCISE_DURATION);
+    setIsPaused(false);
+    setIsComplete(false);
   };
+
+  const nextExercise = () => {
+    if (!selectedWorkout) return;
+
+    if (exerciseIndex < selectedWorkout.exercises.length - 1) {
+      setExerciseIndex((current) => current + 1);
+      setTimeLeft(EXERCISE_DURATION);
+      setIsPaused(false);
+    } else {
+      finishWorkout();
+    }
+  };
+
+  const finishWorkout = () => {
+    if (!selectedWorkout) return;
+
+    setIsComplete(true);
+    setIsPaused(true);
+
+    if (addWorkout) {
+      addWorkout({
+        type: selectedWorkout.type,
+        exercises: selectedWorkout.exercises.length,
+        date: new Date().toISOString(),
+      });
+    }
+  };
+
+  const restartWorkout = () => {
+    if (!selectedWorkout) return;
+
+    setExerciseIndex(0);
+    setTimeLeft(EXERCISE_DURATION);
+    setIsPaused(false);
+    setIsComplete(false);
+  };
+
+  const progress = selectedWorkout
+    ? ((EXERCISE_DURATION - timeLeft) / EXERCISE_DURATION) * 100
+    : 0;
+
+  const circumference = 2 * Math.PI * 92;
+  const dashOffset =
+    circumference - (progress / 100) * circumference;
+
+  if (selectedWorkout) {
+    return (
+      <main className="workout-page page-shell">
+        <div className="page-header workout-header">
+          <span className="eyebrow">WORKOUTS</span>
+          <h1>Train with purpose.</h1>
+          <p>
+            Pick a session, start the timer, and build a routine you can
+            repeat consistently.
+          </p>
+        </div>
+
+        <section className="active-workout-card soft-card">
+          <div className="workout-topbar">
+            <button className="exit-button" onClick={exitWorkout}>
+              ← Exit
+            </button>
+
+            <span>
+              Exercise {exerciseIndex + 1} of{" "}
+              {selectedWorkout.exercises.length}
+            </span>
+          </div>
+
+          {isComplete ? (
+            <div className="workout-complete">
+              <div className="complete-icon">✓</div>
+
+              <span className="section-kicker">WORKOUT COMPLETE</span>
+
+              <h2>Great work!</h2>
+
+              <p>
+                You completed all {selectedWorkout.exercises.length}{" "}
+                exercises in your {selectedWorkout.type.toLowerCase()}{" "}
+                workout.
+              </p>
+
+              <div className="complete-actions">
+                <button
+                  className="primary-button"
+                  onClick={restartWorkout}
+                >
+                  Do it again
+                </button>
+
+                <button
+                  className="secondary-button"
+                  onClick={exitWorkout}
+                >
+                  Back to workouts
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="active-workout-content">
+                <span className="active-workout-type">
+                  {selectedWorkout.type.toUpperCase()}
+                </span>
+
+                <h2>{currentExercise}</h2>
+
+                <div className="timer-circle">
+                  <svg
+                    className="timer-svg"
+                    viewBox="0 0 200 200"
+                  >
+                    <circle
+                      className="timer-background"
+                      cx="100"
+                      cy="100"
+                      r="92"
+                    />
+
+                    <circle
+                      className="timer-progress"
+                      cx="100"
+                      cy="100"
+                      r="92"
+                      style={{
+                        strokeDasharray: circumference,
+                        strokeDashoffset: dashOffset,
+                      }}
+                    />
+                  </svg>
+
+                  <div className="timer-content">
+                    <strong>{timeLeft}</strong>
+                    <span>seconds</span>
+                  </div>
+                </div>
+
+                <div className="timer-actions">
+                  <button
+                    className="secondary-button"
+                    onClick={() => setIsPaused((current) => !current)}
+                  >
+                    {isPaused ? "Resume" : "Pause"}
+                  </button>
+
+                  <button
+                    className="primary-button"
+                    onClick={nextExercise}
+                  >
+                    {exerciseIndex ===
+                    selectedWorkout.exercises.length - 1
+                      ? "Finish workout"
+                      : "Next exercise"}
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="workout-page page-shell">
-      <div className="page-header">
+      <div className="page-header workout-header">
         <span className="eyebrow">WORKOUTS</span>
         <h1>Train with purpose.</h1>
-        <p>Pick a session, start the timer, and build a routine you can repeat consistently.</p>
+        <p>
+          Pick a session, start the timer, and build a routine you can
+          repeat consistently.
+        </p>
       </div>
 
-      {!selected && (
-        <div className="workout-grid">
-          {Object.entries(workouts).map(([name, data]) => (
-            <button
-              className={`workout-tile ${data.color}`}
-              key={name}
-              onClick={() => chooseWorkout(name)}
-            >
-              <div className="workout-tile-top">
-                <span className="workout-big-icon">{data.icon}</span>
-                <span>4 exercises</span>
-              </div>
-              <h2>{name}</h2>
-              <p>{data.description}</p>
-              <span className="workout-link">View session →</span>
-            </button>
-          ))}
-        </div>
-      )}
+      <section className="workout-grid">
+        {WORKOUTS.map((workout) => (
+          <button
+            className="workout-option-card soft-card"
+            key={workout.type}
+            onClick={() => startWorkout(workout)}
+          >
+            <div className="workout-card-top">
+              <div className="workout-icon">{workout.icon}</div>
 
-      {selected && !started && !completed && (
-        <section className="session-card soft-card">
-          <button className="ghost-btn" onClick={exit}>← Back to workouts</button>
-
-          <div className="session-heading">
-            <div>
-              <span className="eyebrow">{selected.toUpperCase()}</span>
-              <h2>{selected} session</h2>
-              <p>{workouts[selected].description}</p>
-            </div>
-            <span className="session-count">{exercises.length} exercises</span>
-          </div>
-
-          <div className="exercise-list">
-            {exercises.map((exercise, index) => (
-              <div className="exercise-row" key={exercise.name}>
-                <div className="exercise-number">{String(index + 1).padStart(2, "0")}</div>
-                <div>
-                  <strong>{exercise.name}</strong>
-                  <span>{exercise.duration}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <button className="primary-btn" onClick={begin}>Begin workout</button>
-        </section>
-      )}
-
-      {selected && started && !completed && (
-        <section className="timer-panel soft-card">
-          <div className="timer-head">
-            <button className="ghost-btn" onClick={exit}>← Exit</button>
-            <span>Exercise {current + 1} of {exercises.length}</span>
-          </div>
-
-          <div className="timer-stage">
-            <span className="eyebrow">{selected.toUpperCase()}</span>
-            <h2>{exercises[current].name}</h2>
-
-            <div className="timer-ring">
-              <div>
-                <strong>{timeLeft}</strong>
-                <span>seconds</span>
-              </div>
+              <span className="exercise-count">
+                {workout.exercises.length} exercises
+              </span>
             </div>
 
-            <div className="timer-actions">
-              <button
-                className={running ? "secondary-btn" : "primary-btn"}
-                onClick={() => setRunning((value) => !value)}
-              >
-                {running ? "Pause" : timeLeft === 0 ? "Resume" : "Start"}
-              </button>
-              <button className="primary-btn" onClick={next}>
-                {current === exercises.length - 1 ? "Complete workout" : "Next exercise"}
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
+            <div className="workout-card-content">
+              <h2>{workout.type}</h2>
 
-      {completed && (
-        <section className="completion-card soft-card">
-          <div className="completion-icon">✓</div>
-          <span className="eyebrow">SESSION COMPLETE</span>
-          <h2>Nice work.</h2>
-          <p>You completed your {selected} workout and added it to your progress.</p>
-          <button className="primary-btn" onClick={exit}>Choose another workout</button>
-        </section>
-      )}
+              <p>{workout.description}</p>
+
+              <span className="view-session">
+                View session →
+              </span>
+            </div>
+          </button>
+        ))}
+      </section>
     </main>
   );
 }
