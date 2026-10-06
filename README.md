@@ -1,136 +1,111 @@
-# FitLife
+# FitLife — Personal Fitness & Wellness Dashboard
 
-A modern and responsive fitness tracking web application built with React and Vite.
+<p align="center">
+  <strong>A modern, responsive fitness web application for tracking workouts, nutrition, hydration, sleep, steps, progress, and personal fitness goals.</strong>
+</p>
 
-FitLife helps users manage their daily fitness activities from a single dashboard. Users can track workouts, nutrition, water intake, sleep, steps, achievements, and overall progress.
+<p align="center">
+  <a href="https://github.com/Rohit-Kumar-AI/FitLife">GitHub Repository</a>
+  ·
+  <a href="https://github.com/Rohit-Kumar-AI">GitHub Profile</a>
+</p>
 
-## Overview
+---
 
-FitLife is designed as a simple and user-friendly fitness companion with a clean interface and persistent local data.
+## 📌 Overview
 
-The application currently provides:
+**FitLife** is a fitness tracking web application that brings everyday workout and wellness tracking into one clean dashboard.
 
-- Fitness dashboard
-- Workout tracking and timer
-- Nutrition and meal tracking
-- Water intake tracking
-- Sleep tracking
-- Daily step tracking
-- Progress monitoring
-- Achievement system
-- BMI calculation
-- Personal fitness profile
-- Dark mode
-- Responsive design
-- Automatic daily data reset
-- LocalStorage-based data persistence
+Users can track workouts, meals, water, sleep, steps, progress, achievements, and personal fitness information through a responsive React interface.
 
+## ✨ Key Features
 
-## Features
+- 🏠 Personalized fitness dashboard
+- 🏋️ Strength, Cardio, Flexibility and HIIT workouts
+- ⏱️ Guided workout timer with pause and next-exercise controls
+- 🥗 Breakfast, lunch, snack and dinner nutrition plans
+- 🍽️ Daily meal logging with calories, protein and carbs
+- 💧 Water intake tracking
+- 😴 Sleep tracking
+- 👟 Step tracking
+- 📈 Workout history, weekly activity and streak tracking
+- 🏆 Achievement and milestone system
+- 👤 Editable fitness profile
+- ⚖️ BMI calculation and healthy weight range
+- 🌙 Dark/light theme
+- 💾 LocalStorage persistence
+- 🔄 Automatic daily reset for daily metrics
+- 📱 Responsive UI
 
-### Dashboard
+---
 
-The dashboard provides a quick overview of the user's daily fitness activity, including:
+## 🖥️ Screenshots
 
-- Calories
-- Protein
-- Carbohydrates
-- Water
-- Sleep
-- Steps
-- Daily goals and progress
+### 🏠 Dashboard
 
-### Workout
+<p align="center">
+  <img src="screenshots/fitlife-dashboard.png" alt="FitLife Dashboard" width="900">
+</p>
 
-Users can start workouts using the built-in timer and maintain a history of completed workouts.
+### 🏋️ Workouts
 
-### Nutrition
+<p align="center">
+  <img src="screenshots/fitlife-workouts.png" alt="FitLife Workouts" width="900">
+</p>
 
-Users can add meals and track:
+### ⏱️ Workout Timer
 
-- Calories
-- Protein
-- Carbohydrates
-- Daily meals
+<p align="center">
+  <img src="screenshots/fitlife-workout-timer.png" alt="FitLife Workout Timer" width="900">
+</p>
 
-### Water
+### 🥗 Nutrition
 
-Users can record their daily water intake and monitor their hydration goal.
+<p align="center">
+  <img src="screenshots/fitlife-nutrition.png" alt="FitLife Nutrition" width="900">
+</p>
 
-### Sleep
+### 🍽️ Today's Nutrition
 
-Users can record sleep duration and adjust their daily sleep progress.
+<p align="center">
+  <img src="screenshots/fitlife-todays-nutrition.png" alt="FitLife Today's Nutrition" width="900">
+</p>
 
-### Steps
+### 📈 Progress
 
-Users can track daily steps and work toward a 10,000-step goal.
+<p align="center">
+  <img src="screenshots/fitlife-progress.png" alt="FitLife Progress" width="900">
+</p>
 
-### Progress
+### 🏆 Achievements
 
-The progress section provides workout history and fitness activity statistics.
+<p align="center">
+  <img src="screenshots/fitlife-achievements.png" alt="FitLife Achievements" width="900">
+</p>
 
-### Achievements
+### 👤 Profile
 
-FitLife includes achievement milestones such as:
+<p align="center">
+  <img src="screenshots/fitlife-profile.png" alt="FitLife Profile" width="900">
+</p>
 
-- First Workout
-- 3 Workouts
-- 5 Workouts
-- 10 Workouts
-- Hydration Goal
-- 10K Steps
-- Good Sleep
-- Healthy Start
+---
 
-### Profile
-
-Users can maintain their fitness profile with:
-
-- Name
-- Age
-- Gender
-- Height
-- Weight
-- Fitness goal
-- Activity level
-- BMI
-
-### Dark Mode
-
-FitLife includes a persistent dark mode for a comfortable viewing experience.
-
-### Daily Reset
-
-Daily tracking information automatically resets when a new day begins.
-
-The reset includes:
-
-- Calories
-- Protein
-- Carbohydrates
-- Meals
-- Water
-- Sleep
-- Steps
-
-Workout history remains available for long-term progress tracking.
-
-
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Technology | Purpose |
-|------------|---------|
+|---|---|
 | React | Frontend UI |
-| Vite | Development and build tool |
-| JavaScript | Application logic |
+| Vite | Development server and build tool |
+| JavaScript (ES6+) | Application logic |
 | HTML5 | Page structure |
 | CSS3 | Styling and responsive design |
 | LocalStorage | Client-side data persistence |
-| Git | Version control |
-| GitHub | Repository hosting |
+| Git & GitHub | Version control |
 
+---
 
-## Project Structure
+## 🧩 Project Structure
 
 ```text
 FitLife/
@@ -139,27 +114,111 @@ FitLife/
     │   ├── components/
     │   │   ├── Navbar.jsx
     │   │   └── Navbar.css
-    │   │
     │   ├── pages/
-    │   │   ├── Home.jsx
-    │   │   ├── Home.css
-    │   │   ├── Workout.jsx
-    │   │   ├── Workout.css
-    │   │   ├── Diet.jsx
-    │   │   ├── Diet.css
-    │   │   ├── Progress.jsx
-    │   │   ├── Progress.css
     │   │   ├── Achievements.jsx
     │   │   ├── Achievements.css
+    │   │   ├── Diet.jsx
+    │   │   ├── Diet.css
+    │   │   ├── Home.jsx
+    │   │   ├── Home.css
     │   │   ├── Profile.jsx
-    │   │   └── Profile.css
-    │   │
+    │   │   ├── Profile.css
+    │   │   ├── Progress.jsx
+    │   │   ├── Progress.css
+    │   │   ├── Workout.jsx
+    │   │   └── Workout.css
     │   ├── App.jsx
     │   ├── index.css
     │   └── main.jsx
-    │
     ├── index.html
     ├── package.json
     ├── package-lock.json
-    ├── vite.config.js
-    └── .gitignore
+    └── vite.config.js
+```
+
+---
+
+## 🚀 Run Locally
+
+```bash
+git clone https://github.com/Rohit-Kumar-AI/FitLife.git
+cd FitLife/frontend
+npm install
+npm run dev
+```
+
+Open the Vite URL shown in the terminal, normally:
+
+```text
+http://localhost:5173/
+```
+
+---
+
+## 💾 Data Persistence
+
+FitLife uses browser **LocalStorage** for client-side persistence.
+
+Stored data includes:
+
+- Daily nutrition
+- Logged meals
+- Water intake
+- Sleep
+- Steps
+- Workout history
+- Theme preference
+- Daily date state
+
+Daily metrics automatically reset when a new day begins, while workout history remains available for progress tracking.
+
+---
+
+## 🎯 Design Goals
+
+FitLife was designed to be:
+
+- **Simple** — important information is easy to find
+- **Practical** — focused on real fitness tracking workflows
+- **Responsive** — works across desktop and smaller screens
+- **Consistent** — shared visual design across all pages
+- **Maintainable** — organized React components and page styles
+- **Interactive** — progress indicators and actions update immediately
+
+---
+
+## 🔮 Future Improvements
+
+- Backend authentication
+- PostgreSQL/cloud database
+- User accounts and cloud sync
+- AI-powered workout recommendations
+- AI meal recommendations
+- Personalized calorie targets
+- Long-term progress charts
+- Exercise videos/illustrations
+- Notifications and reminders
+- PWA/mobile app support
+- Health-device integration
+
+---
+
+## 👨‍💻 Author
+
+**Rohit Kumar**
+
+B.Tech — Computer Science & Engineering (Artificial Intelligence)
+
+- GitHub: https://github.com/Rohit-Kumar-AI
+- LinkedIn: https://www.linkedin.com/in/rohit-k-ai/
+- LeetCode: https://leetcode.com/u/Rohit_ai/
+
+---
+
+## ⭐ Project
+
+If you find **FitLife** useful or interesting, consider giving the repository a ⭐ on GitHub.
+
+<p align="center">
+  <strong>Built with React + Vite ❤️</strong>
+</p>
